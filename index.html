@@ -47,7 +47,7 @@
         <label for="HorizontalFov">Horizontal FOV:</label>
         <input type="text" id="HorizontalFov" value="" readonly />
 
-        <button id="submitBtn">Calculate</button>
+        <button id="SubmitButton">Calculate</button>
     </div>
     <script>
         function DegreesToRadians(Degrees) {
@@ -56,7 +56,7 @@
         function RadiansToDegrees(Radians) {
             return Radians * (180 / Math.PI);
         }
-        document.getElementById('submitBtn').addEventListener('click', function() {
+        document.getElementById('SubmitButton').addEventListener('click', function() {
             const AdjustedFOV = document.getElementById('AdjustedFov').value;
             const FakeAspectRatio = 40.96 / 21.6;
             const RealAspectRatio = document.getElementById('AspectRatio').value;
