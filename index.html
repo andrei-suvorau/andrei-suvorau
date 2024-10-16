@@ -1,0 +1,70 @@
+<!-- Copyright (c) CD PROJEKT S.A. All Rights Reserved. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOV Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <label for="AdjustedFov">Adjusted FOV:</label>
+        <input type="text" id="AdjustedFov" value="90" />
+
+        <label for="AspectRatio">Aspect Ratio:</label>
+        <input type="text" id="AspectRatio" value="1.777777777" />
+
+        <label for="VerticalFov">Vertical FOV:</label>
+        <input type="text" id="VerticalFov" value="" readonly />
+
+        <label for="HorizontalFov">Horizontal FOV:</label>
+        <input type="text" id="HorizontalFov" value="" readonly />
+
+        <button id="submitBtn">Calculate</button>
+    </div>
+    <script>
+        function DegreesToRadians(Degrees) {
+            return Degrees * (Math.PI / 180);
+        }
+        function RadiansToDegrees(Radians) {
+            return Radians * (180 / Math.PI);
+        }
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const AdjustedFOV = document.getElementById('AdjustedFov').value;
+            const FakeAspectRatio = 40.96 / 21.6;
+            const RealAspectRatio = document.getElementById('AspectRatio').value;
+            const VerticalFOV = RadiansToDegrees(2.0 * Math.atan(Math.tan(0.5 * DegreesToRadians(Number(AdjustedFOV))) / FakeAspectRatio));
+            const HorizontalFOV = RadiansToDegrees(2.0 * Math.atan(Math.tan(0.5 * DegreesToRadians(VerticalFOV)) * RealAspectRatio));
+            document.getElementById('VerticalFov').value = VerticalFOV;
+            document.getElementById('HorizontalFov').value = HorizontalFOV;
+        });
+    </script>
+</body>
+</html>
